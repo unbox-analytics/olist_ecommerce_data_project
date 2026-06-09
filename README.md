@@ -11,6 +11,9 @@
 ## Objective
 The goal was to study a dataset real world ecommerce dataset that includes muliple complex tables, a large number if transactions and various datatypes. Real world ecommerce datasets are hard to come by as these are proprietory information but Olist, a Brazilian e-commerce platform has published a dataset containing 99441 orders from March 2016 to August 2018. While this is an older dataset it is a great fit in terms of data richness and Real World applicability. 
 
+
+
+
 ## Importing and understading the data
 To get a better understanding of the data the files were imported into a new SQL database using Microsoft SQL Server Management Studio. Each csv is imported using the import wizard. 
 
