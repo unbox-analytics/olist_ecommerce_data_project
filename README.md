@@ -8,23 +8,32 @@
 <a href="https://github.com/malachi-mendes/Ecommerce_Data_Analytics/tree/main">Overview</a> • <a href="https://github.com/malachi-mendes/Ecommerce_Data_Analytics/blob/main/CustomerInsights.md">Customer Insights</a> • <a href="https://github.com/malachi-mendes/Ecommerce_Data_Analytics/blob/main/Sales_and_Revenue_Analysis.md">Sales and Revenue Analysis</a> • <a href="https://github.com/malachi-mendes/Ecommerce_Data_Analytics/tree/main">Overview</a> • <a href="google.com">Fourth Title</a> • <a href="https://unbox-analytics.github.io/">Back to website</a> 
 </p>
 
-## Objective
-The goal was to study a dataset real world ecommerce dataset that includes muliple complex tables, a large number if transactions and various datatypes. Real world ecommerce datasets are hard to come by as these are proprietory information but Olist, a Brazilian e-commerce platform has published a dataset containing 99441 orders from March 2016 to August 2018. While this is an older dataset it is a great fit in terms of data richness and Real World applicability. 
+## Project Overview
+The Olist database is a set of ecommerce data spanning multiple tables. Olist, a Brazilian e-commerce platform has published a dataset containing 99441 orders from March 2016 to August 2018. 
 
+The project simulates a real-world data pipeline involving:
 
+- Data ingestion
+- Automated data cleaning
+- Error logging
+- Data warehouse design
+- Business analysis
+- KPI reporting
 
-
-## Importing and understading the data
+## Importing and understading the data (Data Source: https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce)
 To get a better understanding of the data the files were imported into a new SQL database using Microsoft SQL Server Management Studio. Each csv is imported using the import wizard. 
 
-Schema 
+## Tables
+customers.csv
+geolocation.csv
+order_items.csv
+order_payments.csv
+order_reviews.csv
+orders.csv
+products.csv
+sellers.csv
+product_category_name_translation.cs
 
-A review of the data showed the following errors which could be cleaned:
-The city names has different spellings with and without accents
-fix: the 
-
-
-Data Source: https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce
 
 ## Tools and Technologies
 <p align="left">
