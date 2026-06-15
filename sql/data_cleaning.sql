@@ -161,87 +161,87 @@ select * from clean.products
 
 
 
--- CREATE OR ALTER PROCEDURE stg.usp_load_products
--- AS
--- BEGIN
---     SET NOCOUNT ON;
---     DECLARE @rows_loaded INT = 0, @rows_rejected INT = 0;
+CREATE OR ALTER PROCEDURE stg.usp_load_products
+AS
+BEGIN
+    SET NOCOUNT ON;
+    DECLARE @rows_loaded INT = 0, @rows_rejected INT = 0;
 
---     BEGIN TRY
---         BEGIN TRANSACTION;
+    BEGIN TRY
+        BEGIN TRANSACTION;
 
---         -- Stage
---         TRUNCATE TABLE stg.products;
---         INSERT INTO stg.products SELECT * FROM raw.products;
+        -- Stage
+        TRUNCATE TABLE stg.products;
+        INSERT INTO stg.products SELECT * FROM raw.products;
 
---         -- Error table
---         TRUNCATE TABLE error.products;
---         ;WITH v AS (
---             SELECT *, ROW_NUMBER() OVER (PARTITION BY product_id ORDER BY product_id) AS row_num
---             FROM stg.products
---         )
---         INSERT INTO error.products (
---             product_id, product_category_name,
---             product_name_lenght, product_description_lenght, product_photos_qty,
---             product_weight_g, product_length_cm, product_height_cm, product_width_cm,
---             flag_duplicates, flag_null_product, flag_category_not_found,
---             flag_invalid_weight, flag_invalid_length, flag_invalid_height, flag_invalid_width
---         )
---         SELECT
---             product_id, product_category_name,
---             product_name_lenght, product_description_lenght, product_photos_qty,
---             product_weight_g, product_length_cm, product_height_cm, product_width_cm,
---             CASE WHEN row_num > 1 THEN 1 ELSE 0 END,
---             CASE WHEN product_id IS NULL THEN 1 ELSE 0 END,
---             CASE WHEN product_category_name IS NULL THEN 1 ELSE 0 END,
---             CASE WHEN product_weight_g <= 0 THEN 1 ELSE 0 END,
---             CASE WHEN product_length_cm <= 0 THEN 1 ELSE 0 END,
---             CASE WHEN product_height_cm <= 0 THEN 1 ELSE 0 END,
---             CASE WHEN product_width_cm <= 0 THEN 1 ELSE 0 END
---         FROM v
---         WHERE row_num > 1 OR product_id IS NULL OR product_category_name IS NULL
---            OR product_weight_g <= 0 OR product_length_cm <= 0
---            OR product_height_cm <= 0 OR product_width_cm <= 0;
+        -- Error table
+        TRUNCATE TABLE error.products;
+        ;WITH v AS (
+            SELECT *, ROW_NUMBER() OVER (PARTITION BY product_id ORDER BY product_id) AS row_num
+            FROM stg.products
+        )
+        INSERT INTO error.products (
+            product_id, product_category_name,
+            product_name_lenght, product_description_lenght, product_photos_qty,
+            product_weight_g, product_length_cm, product_height_cm, product_width_cm,
+            flag_duplicates, flag_null_product, flag_category_not_found,
+            flag_invalid_weight, flag_invalid_length, flag_invalid_height, flag_invalid_width
+        )
+        SELECT
+            product_id, product_category_name,
+            product_name_lenght, product_description_lenght, product_photos_qty,
+            product_weight_g, product_length_cm, product_height_cm, product_width_cm,
+            CASE WHEN row_num > 1 THEN 1 ELSE 0 END,
+            CASE WHEN product_id IS NULL THEN 1 ELSE 0 END,
+            CASE WHEN product_category_name IS NULL THEN 1 ELSE 0 END,
+            CASE WHEN product_weight_g <= 0 THEN 1 ELSE 0 END,
+            CASE WHEN product_length_cm <= 0 THEN 1 ELSE 0 END,
+            CASE WHEN product_height_cm <= 0 THEN 1 ELSE 0 END,
+            CASE WHEN product_width_cm <= 0 THEN 1 ELSE 0 END
+        FROM v
+        WHERE row_num > 1 OR product_id IS NULL OR product_category_name IS NULL
+           OR product_weight_g <= 0 OR product_length_cm <= 0
+           OR product_height_cm <= 0 OR product_width_cm <= 0;
 
---         SET @rows_rejected = @@ROWCOUNT;
+        SET @rows_rejected = @@ROWCOUNT;
 
---         -- Clean table (fix typo column names here)
---         TRUNCATE TABLE clean.products;
---         ;WITH v AS (
---             SELECT *, ROW_NUMBER() OVER (PARTITION BY product_id ORDER BY product_id) AS row_num
---             FROM stg.products
---         )
---         INSERT INTO clean.products (
---             product_id, product_category_name,
---             product_name_length,          -- fixed typo
---             product_description_length,   -- fixed typo
---             product_photos_qty,
---             product_weight_g, product_length_cm, product_height_cm, product_width_cm
---         )
---         SELECT
---             product_id, product_category_name,
---             product_name_lenght, product_description_lenght, product_photos_qty,
---             product_weight_g, product_length_cm, product_height_cm, product_width_cm
---         FROM v
---         WHERE row_num = 1 AND product_id IS NOT NULL AND product_category_name IS NOT NULL
---           AND product_weight_g > 0 AND product_length_cm > 0
---           AND product_height_cm > 0 AND product_width_cm > 0;
+        -- Clean table (fix typo column names here)
+        TRUNCATE TABLE clean.products;
+        ;WITH v AS (
+            SELECT *, ROW_NUMBER() OVER (PARTITION BY product_id ORDER BY product_id) AS row_num
+            FROM stg.products
+        )
+        INSERT INTO clean.products (
+            product_id, product_category_name,
+            product_name_length,          -- fixed typo
+            product_description_length,   -- fixed typo
+            product_photos_qty,
+            product_weight_g, product_length_cm, product_height_cm, product_width_cm
+        )
+        SELECT
+            product_id, product_category_name,
+            product_name_lenght, product_description_lenght, product_photos_qty,
+            product_weight_g, product_length_cm, product_height_cm, product_width_cm
+        FROM v
+        WHERE row_num = 1 AND product_id IS NOT NULL AND product_category_name IS NOT NULL
+          AND product_weight_g > 0 AND product_length_cm > 0
+          AND product_height_cm > 0 AND product_width_cm > 0;
 
---         SET @rows_loaded = @@ROWCOUNT;
+        SET @rows_loaded = @@ROWCOUNT;
 
---         -- Audit success
---         INSERT INTO audit.etl_runs (table_name, rows_loaded, rows_rejected)
---         VALUES ('products', @rows_loaded, @rows_rejected);
+        -- Audit success
+        INSERT INTO audit.etl_runs (table_name, rows_loaded, rows_rejected)
+        VALUES ('products', @rows_loaded, @rows_rejected);
 
---         COMMIT TRANSACTION;
---     END TRY
---     BEGIN CATCH
---         IF @@TRANCOUNT > 0 ROLLBACK TRANSACTION;
+        COMMIT TRANSACTION;
+    END TRY
+    BEGIN CATCH
+        IF @@TRANCOUNT > 0 ROLLBACK TRANSACTION;
 
---         -- Audit failure
---         INSERT INTO audit.etl_runs (table_name, rows_loaded, rows_rejected)
---         VALUES ('products', -1, -1);  -- -1 signals a failed run
+        -- Audit failure
+        INSERT INTO audit.etl_runs (table_name, rows_loaded, rows_rejected)
+        VALUES ('products', -1, -1);  -- -1 signals a failed run
 
---         THROW;  -- re-raise so the caller knows it failed
---     END CATCH;
--- END;
+        THROW;  -- re-raise so the caller knows it failed
+    END CATCH;
+END;
