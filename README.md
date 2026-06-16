@@ -1,12 +1,10 @@
 <p>
-<a href="https://unbox-analytics.github.io/">Website</a> * 
+<a href="[https://github.com/malachi-mendes/Ecommerce_Data_Analytics/tree/main](https://github.com/unbox-analytics/olist_ecommerce_data_project/tree/main)">Overview</a> • <a href="https://github.com/unbox-analytics/olist_ecommerce_data_project/blob/main/documentation/CustomerInsights.md">Customer Insights</a> • <a href="https://github.com/unbox-analytics/olist_ecommerce_data_project/blob/main/documentation/Sales_and_Revenue_Analysis.md">Sales and Revenue Analysis</a> • <a href="https://unbox-analytics.github.io/">Back to website</a> 
 </p>
 
 # Retail E-commerce Project  
 
-<p>
-<a href="https://github.com/malachi-mendes/Ecommerce_Data_Analytics/tree/main">Overview</a> • <a href="https://github.com/unbox-analytics/olist_ecommerce_data_project/blob/main/documentation/CustomerInsights.md">Customer Insights</a> • <a href="https://github.com/unbox-analytics/olist_ecommerce_data_project/blob/main/documentation/Sales_and_Revenue_Analysis.md">Sales and Revenue Analysis</a> • <a href="https://unbox-analytics.github.io/">Back to website</a> 
-</p>
+
 
 ## Project Overview
 The Olist database is a set of ecommerce data spanning multiple tables. Olist, a Brazilian e-commerce platform has published a dataset containing 99441 orders from March 2016 to August 2018. 
