@@ -1,5 +1,7 @@
 ## Customer Insights
-<a href="https://github.com/malachi-mendes/Ecommerce_Data_Analytics?tab=readme-ov-file">Overview</a>
+<p>
+<a href="https://github.com/malachi-mendes/Ecommerce_Data_Analytics/tree/main">Overview</a> • <a href="https://github.com/unbox-analytics/olist_ecommerce_data_project/blob/main/documentation/CustomerInsights.md">Customer Insights</a> • <a href="https://github.com/unbox-analytics/olist_ecommerce_data_project/blob/main/documentation/Sales_and_Revenue_Analysis.md">Sales and Revenue Analysis</a> • <a href="https://unbox-analytics.github.io/">Back to website</a> 
+</p>
 
 ### Which states has the most active buyers and what is the repeat customer rate?
 Assumptions: 
