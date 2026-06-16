@@ -1,4 +1,15 @@
-USE Olist;
+
+select * from raw.products
+select * from customers
+Select * from geolocation
+select * from sellers
+select * from payments
+select * from orders
+select * from order_reviews
+select * from order_items
+select * from category_name
+
+
 SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE';
 -- Olist E-commerce Data Analysis
 -- Customer Insights
@@ -320,4 +331,3 @@ RFM (Recency, Frequency, Monetary) segmentation to identify VIP customers.
 Forecast monthly revenue using time series modeling.
 
 Create a customer satisfaction index by combining reviews, delivery time, and repeat orders.
-
